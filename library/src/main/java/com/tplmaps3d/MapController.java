@@ -1462,4 +1462,45 @@ public class MapController implements Renderer {
         return fontFileParser.getFontFallback(importance, weightHint);
     }
 
+
+
+    //////////////////////////////////////// SDK Work - START //////////////////////////////////////
+
+    /*
+     * MAP VIEW
+     */
+
+    private MapView map;
+
+    void setMapView(MapView mapView) {
+        map = mapView;
+    }
+
+    private MapView getMapView() {
+        return map;
+    }
+
+    /*
+     * UI
+     */
+
+
+    private UISettings uiSettings;
+
+    public UISettings getUiSettings() {
+
+        if(map == null)
+            return null;
+
+        if(uiSettings == null) {
+            uiSettings = new UISettings(map);
+            return uiSettings;
+        }
+        else
+            return uiSettings;
+    }
+
+
+    //////////////////////////////////////// SDK Work - END ////////////////////////////////////////
+
 }

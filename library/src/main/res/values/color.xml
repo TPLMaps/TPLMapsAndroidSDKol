@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="app_color_greenish">#009ea5</color>
+    <color name="app_color_greenish_dark_pressed">#00868c</color>
+    <color name="list_item_selector">#82009ea5</color>-->
+
+    <color name="app_color_greenish">#136734</color>
+    <color name="app_color_greenish_dark_pressed">#0c3e20</color>
+    <color name="app_color_orange">#FF4730</color>
+    <color name="app_color_red">#ff0000</color>
+    <color name="app_dark_grey1">#222423</color>
+    <color name="app_dark_grey2">#2e2f2e</color>
+    <color name="text_dark_grey2">#636665</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="list_view_item_selector_color">#eeeeee</color>
+
+    <color name="list_item_review_datetime">#8e8e8e</color>
+
+    <color name="text_view_color_grey">#5d5d5d</color>
+
+    <color name="android_grey_background_color">#eeeeee</color>
+    <color name="divider_color_light_grey">#CECECE</color>
+    <color name="selected_list_item_light_grey">#F2F2F2</color>
+
+    <color name="google_plus">#dd4b39</color>
+    <color name="google_plus_dark">#c53829</color>
+
+    <color name="facebook">#3b5999</color>
+    <color name="facebook_dark">#30497d</color>
+
+    <color name="edittext_text">#212121</color>
+    <color name="edittext_text_hint">#B6B6B6</color>
+
+    <color name="search_layover_bg">#50000000</color>
+
+    <color name="label_pending_color">#fa9900</color>
+    <!--<color name="navigation_from_location_hint_color">#16bfc8</color>-->
+
+    <color name="unread_item_background_color">#fff8e1</color>
+    <color name="unread_item_background_color_02">#5489b399</color>
+    <color name="dark_grey_icon_color">#FF757262</color>
+
+    <color name="side_menuheader_profile_bg">#333333</color>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ui_parent" type="id"/>
+    <item name="ui_parent_zoom_controls" type="id"/>
+    <item name="ui_button_zoom_in" type="id"/>
+    <item name="ui_button_zoom_out" type="id"/>
+    <item name="ui_button_compass" type="id"/>
+    <item name="ui_button_my_location" type="id"/>
+</resources>

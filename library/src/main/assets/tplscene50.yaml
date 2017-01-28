@@ -1039,22 +1039,22 @@ styles:
 sources:
     local:
         type: MVT
-        url:  baseurl/composite/{z}/{x}/{y}.mvt
+        url:  http://175.107.206.39:8004/composite/{z}/{x}/{y}.mvt
         min_zoom: 1
         max_zoom: 17
     local2:
         type: MVT
-        url:  baseurl/buildings/{z}/{x}/{y}.mvt
+        url:  http://175.107.206.39:8003/buildings/{z}/{x}/{y}.mvt
         min_zoom: 14
         max_zoom: 17
     local-pois:
         type: MVT
-        url:  baseurl/pois/{z}/{x}/{y}.mvt
+        url:  http://175.107.206.39:8004/pois/{z}/{x}/{y}.mvt
         min_zoom: 10
         max_zoom: 17
     local-sv:
         type: MVT
-        url:  baseurl/sv/{z}/{x}/{y}.mvt
+        url:  http://175.107.206.39:8003/sv/{z}/{x}/{y}.mvt
         min_zoom: 10
         max_zoom: 16
         

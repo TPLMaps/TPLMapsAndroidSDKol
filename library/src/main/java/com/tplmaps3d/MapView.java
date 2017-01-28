@@ -25,7 +25,6 @@ public class MapView extends FrameLayout {
         super(context);
 
         configureGLSurfaceView();
-
     }
 
     public MapView(Context context, AttributeSet attrs) {
@@ -94,6 +93,7 @@ public class MapView extends FrameLayout {
                 addView(glSurfaceView);
                 disposeMap();
                 mapController = mapInstance;
+                mapController.setMapView(MapView.this);
                 callback.onMapReady(mapController);
             }
 
@@ -192,6 +192,12 @@ public class MapView extends FrameLayout {
     private String getSceneFile() {
         // if Android API Level < 23 then building texture rendering issue will occur thats why 2 different
         return (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) ? "tplscene50.yaml" : "tplscene.yaml";
+    }
+
+
+
+    public MapController getMapController() {
+        return mapController;
     }
 
 
