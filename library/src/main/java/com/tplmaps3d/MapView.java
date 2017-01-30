@@ -167,6 +167,7 @@ public class MapView extends FrameLayout {
 
         disposeTask();
         disposeMap();
+        disposeMapController();
 
     }
 
@@ -195,9 +196,13 @@ public class MapView extends FrameLayout {
     }
 
 
-
     public MapController getMapController() {
         return mapController;
+    }
+
+    public void disposeMapController() {
+        if (mapController != null)
+            mapController.onDestroy();
     }
 
 

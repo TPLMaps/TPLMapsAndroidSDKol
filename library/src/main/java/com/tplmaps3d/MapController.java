@@ -660,6 +660,10 @@ public class MapController implements Renderer {
                 if (responder == null || !responder.onRotate(x, y, rotation)) {
                     nativeHandleRotateGesture(mapPointer, x, y, rotation);
                 }
+
+                if (getUiSettings() != null && getUiSettings().showCompass)
+                    getUiSettings().setCompassOrientation((int) Math.toDegrees(getRotation()));
+
                 return true;
             }
         });
@@ -1463,8 +1467,8 @@ public class MapController implements Renderer {
     }
 
 
+    //////////////////////////////////////// SDK WORK - START //////////////////////////////////////
 
-    //////////////////////////////////////// SDK Work - START //////////////////////////////////////
 
     /*
      * MAP VIEW
@@ -1476,31 +1480,35 @@ public class MapController implements Renderer {
         map = mapView;
     }
 
-    private MapView getMapView() {
-        return map;
-    }
+
+
+
 
     /*
      * UI
      */
 
-
     private UISettings uiSettings;
 
     public UISettings getUiSettings() {
 
-        if(map == null)
+        if (map == null)
             return null;
 
-        if(uiSettings == null) {
+        if (uiSettings == null) {
             uiSettings = new UISettings(map);
             return uiSettings;
-        }
-        else
+        } else
             return uiSettings;
     }
 
 
-    //////////////////////////////////////// SDK Work - END ////////////////////////////////////////
+    void onDestroy() {
+        if (uiSettings != null)
+            uiSettings.onDestroy();
+    }
+
+
+    //////////////////////////////////////// SDK WORK - END ////////////////////////////////////////
 
 }

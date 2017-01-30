@@ -9,7 +9,8 @@ import com.tplmaps3d.R;
 
 public class Compass extends ImageView {
 
-    private int direction = 0;
+    //private static final String TAG = Compass.class.getSimpleName();
+    private int orientation = 0;
 
     public Compass(Context context) {
         super(context);
@@ -31,12 +32,12 @@ public class Compass extends ImageView {
         int height = this.getHeight();
         int width = this.getWidth();
 
-        canvas.rotate(direction, width / 2, height / 2);
+        canvas.rotate(orientation, width / 2, height / 2);
         super.onDraw(canvas);
     }
 
-    public void setDirection(int direction) {
-        this.direction = direction;
+    public void setOrientation(int degrees) {
+        this.orientation = degrees;
         this.invalidate();
     }
 }
