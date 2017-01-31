@@ -1,5 +1,6 @@
 package com.tplmaps3d;
 
+import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.os.AsyncTask;
@@ -9,12 +10,16 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.tplmaps3d.sdk.model.BitmapDescriptorFactory;
+import com.tplmaps3d.sdk.model.TPLMarker;
+import com.tplmaps3d.sdk.model.TPLMarkerOptions;
+
 import java.util.List;
 
 /**
  * {@code MapView} is a View for displaying a map.
  */
-public class MapView extends FrameLayout {
+public class MapView extends FrameLayout implements TouchInput.TapResponder {
 
     protected GLSurfaceView glSurfaceView;
     protected MapController mapController;
@@ -25,6 +30,8 @@ public class MapView extends FrameLayout {
         super(context);
 
         configureGLSurfaceView();
+
+        initializeSDKDefaults();
     }
 
     public MapView(Context context, AttributeSet attrs) {
@@ -33,6 +40,7 @@ public class MapView extends FrameLayout {
 
         configureGLSurfaceView();
 
+        initializeSDKDefaults();
     }
 
     /**
@@ -95,6 +103,9 @@ public class MapView extends FrameLayout {
                 mapController = mapInstance;
                 mapController.setMapView(MapView.this);
                 callback.onMapReady(mapController);
+
+                // Defaults for sdk initialization
+                mapController.setTapResponder(MapView.this);
             }
 
             @Override
@@ -181,6 +192,19 @@ public class MapView extends FrameLayout {
 
     //////////////////////////////////////// SDK Work - START //////////////////////////////////////
 
+    private void initializeSDKDefaults() {
+        BitmapDescriptorFactory.init(getContext());
+
+    }
+
+    public MapController getMapController() {
+        return mapController;
+    }
+
+    public void disposeMapController() {
+        if (mapController != null)
+            mapController.onDestroy();
+    }
 
     public void loadMapAsync(@NonNull final OnMapReadyCallback callback) {
         getMapAsync(callback, getSceneFile());
@@ -195,14 +219,54 @@ public class MapView extends FrameLayout {
         return (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) ? "tplscene50.yaml" : "tplscene.yaml";
     }
 
+    /*
+     * Markers
+     */
 
-    public MapController getMapController() {
-        return mapController;
+    public final TPLMarker addMarker(TPLMarkerOptions TPLMarkerOptions) {
+        Marker marker = mapController.addMarker();
+        marker.setStyling("{ style: 'points', interactive: true, color: 'white', size: [50px, 50px], order: 2000, collide: false }");
+        return mapController.addPoint(marker, TPLMarkerOptions);
     }
 
-    public void disposeMapController() {
-        if (mapController != null)
-            mapController.onDestroy();
+    public final void setOnMarkerClickListener(final OnMarkerClickListener markerClickListener) {
+        if(markerClickListener == null) {
+            mapController.setMarkerPickListener(null);
+        } else {
+            mapController.setMarkerPickListener(new MapController.MarkerPickListener() {
+                public void onMarkerPick(final MarkerPickResult markerPickResult, float positionX, float positionY) {
+                    if (markerPickResult == null || markerPickResult.getMarker() == null)
+                        return;
+
+                    final long markerId = markerPickResult.getMarker().getMarkerId();
+                    final TPLMarker tplMarker = mapController.pointById(markerId);
+                    ((Activity) getContext()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            LngLat lngLat = tplMarker.getPosition();
+                            mapController.setPositionEased(lngLat, 500);
+                            markerClickListener.onMarkerClick(mapController.pointById(markerId)); }
+                    });
+                }
+            });
+        }
+    }
+
+    @Override
+    public boolean onSingleTapUp(float x, float y) {
+        return false;
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(float x, float y) {
+        mapController.pickFeature(x, y);
+        mapController.pickLabel(x, y);
+        mapController.pickMarker(x, y);
+        return false;
+    }
+
+    public interface OnMarkerClickListener {
+        boolean onMarkerClick(TPLMarker TPLMarker);
     }
 
 

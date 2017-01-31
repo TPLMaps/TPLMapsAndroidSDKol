@@ -9,6 +9,8 @@ import android.util.DisplayMetrics;
 
 import com.tplmaps3d.TouchInput.Gestures;
 import com.tplmaps3d.geometry.Polyline;
+import com.tplmaps3d.sdk.model.TPLMarker;
+import com.tplmaps3d.sdk.model.TPLMarkerOptions;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -1506,6 +1508,23 @@ public class MapController implements Renderer {
     void onDestroy() {
         if (uiSettings != null)
             uiSettings.onDestroy();
+    }
+
+
+    /*
+     * Markers
+     */
+
+    private Map<Long, TPLMarker> points = new HashMap<>();
+
+    public TPLMarker addPoint(Marker marker, TPLMarkerOptions tplMarkerOptions) {
+        TPLMarker tplMarker = new TPLMarker(mapView.getContext(), this, marker, tplMarkerOptions);
+        points.put(marker.getMarkerId(), tplMarker);
+        return tplMarker;
+    }
+
+    TPLMarker pointById(long markerId) {
+        return points.get(markerId);
     }
 
 

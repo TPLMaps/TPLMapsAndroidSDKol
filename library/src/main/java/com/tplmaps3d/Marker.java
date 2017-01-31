@@ -177,7 +177,7 @@ public class Marker {
         return visible;
     }
 
-    private boolean setBitmap(Bitmap bitmap) {
+    public boolean setBitmap(Bitmap bitmap) {
         int density = context.getResources().getDisplayMetrics().densityDpi;
         int width = bitmap.getScaledWidth(density);
         int height = bitmap.getScaledHeight(density);
@@ -201,7 +201,7 @@ public class Marker {
         return map.setMarkerBitmap(markerId, width, height, abgr);
     }
 
-    public LngLat getPoistion() {
+    public LngLat getPosition() {
         LngLat position = new LngLat();
         double[] tmp = {0, 0};
         map.getMarkerPoistion(markerId);
